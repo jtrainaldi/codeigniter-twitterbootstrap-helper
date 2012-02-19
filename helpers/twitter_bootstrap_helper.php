@@ -233,80 +233,8 @@
 	} //END OF form_action function
 
 
-	/**
-	 * Generates an uneditable input element based on the twitter bootstrap HTML structure.
-	 *
-	 * @param   string  label name
-	 * @param   string  uneditable input text value
-	 * @return  string
-	 */
-	function control_group_view($label_name = NULL, $value = NULL, $attr = NULL )
-	{
-		$cg_str = '';
 
-		//Basic HTML element attributes
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-		//Twitter Bootstrap attributes
-		$attr['validation'] = (isset($attr['validation']))?$attr['validation']:NULL;
-		$attr['help-inline'] = (isset($attr['help-inline']))?$attr['help-inline']:NULL;
-		$attr['help-block'] = (isset($attr['help-block']))?$attr['help-block']:NULL;
-
-
-		$cg_str .= '<div id="'.$attr['id'].'" class="control-group view '.$attr['class'].' '.$attr['validation'].' " style="'.$attr['style'].'" >';
-		  $cg_str .= '<label class="control-label" for="">'.$label_name.'</label>';
-		  $cg_str .= '<div class="controls">';
-			
-				$cg_str .= '<span class="view-input">'.$value.'</span>';
-
-					$cg_str .= (isset($tb_attributes['help-inline']))?'<span class="help-inline">'.$tb_attributes['help-inline'].'</span>':'';
-				$cg_str .= (isset($tb_attributes['help-block']))?'<span class="help-block">'.$tb_attributes['help-block'].'</span>':'';
-			$cg_str .= '</div>';
-		$cg_str .= '</div>';
-
-		return $cg_str;
-	}
-	
-	/**
-	 * Generates an uneditable input element based on the twitter bootstrap HTML structure.
-	 *
-	 * @param   string  label name
-	 * @param   string  uneditable input text value
-	 * @return  string
-	 */
-	function control_group_undeditable($label_name = NULL, $value = NULL, $attr = NULL )
-	{
-		$cg_str = '';
-
-		//Basic HTML element attributes
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-		//Twitter Bootstrap attributes
-		$attr['validation'] = (isset($attr['validation']))?$attr['validation']:NULL;
-		$attr['help-inline'] = (isset($attr['help-inline']))?$attr['help-inline']:NULL;
-		$attr['help-block'] = (isset($attr['help-block']))?$attr['help-block']:NULL;
-		$attr['view-only'] = (isset($attr['']))?$attr['help-block']:NULL;
-
-
-		$cg_str .= '<div id="'.$attr['id'].'" class="control-group '.$attr['class'].' '.$attr['validation'].' " style="'.$attr['style'].'" >';
-		  $cg_str .= '<label class="control-label" for="">'.$label_name.'</label>';
-		  $cg_str .= '<div class="controls">';
-			
-				$cg_str .= '<span class="uneditable-input">'.$value.'</span>';
-
-					$cg_str .= (isset($tb_attributes['help-inline']))?'<span class="help-inline">'.$tb_attributes['help-inline'].'</span>':'';
-				$cg_str .= (isset($tb_attributes['help-block']))?'<span class="help-block">'.$tb_attributes['help-block'].'</span>':'';
-			$cg_str .= '</div>';
-		$cg_str .= '</div>';
-
-		return $cg_str;
-	}
-	
-
-
-
+/* ************************************************************************* */
 
 /*
 ALERTS
