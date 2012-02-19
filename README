@@ -1,0 +1,86 @@
+CODEIGNITER-TWITTERBOOTSTRAP-HELPER
+=================
+
+This is Codeigniter helper class to assist in writing some of the Twitter Bootstrap compenents, javascript, etc.
+
+- Codeigniter: http://codeigniter.com/
+- Twitter Bootstrap: http://twitter.github.com/bootstrap/
+
+
+Usage
+-----
+
+For more info, refer to the docs!
+
+
+Versioning
+----------
+
+For transparency and insight into our release cycle, and for striving to maintain backwards compatibility, Bootstrap will be maintained under the Semantic Versioning guidelines as much as possible.
+
+Releases will be numbered with the follow format:
+
+`<major>.<minor>.<patch>`
+
+And constructed with the following guidelines:
+
+* Breaking backwards compatibility bumps the major
+* New additions without breaking backwards compatibility bumps the minor
+* Bug fixes and misc changes bump the patch
+
+For more information on SemVer, please visit http://semver.org/.
+
+
+Bug tracker
+-----------
+
+Have a bug? Please create an issue here on GitHub!
+
+https://github.com/jtrainaldi/codeigniter-twitterbootstrap-helper/issues
+
+
+
+
+Mailing list
+------------
+
+Have a question? Contact me through GITHUB
+https://github.com/jtrainaldi
+
+
+Developers
+----------
+**James Rainaldi**
+
+
+
+Authors
+-------
+
+**James Rainaldi**
+
+Contributors
+------------
+
+**Mark Otto**
+
++ http://twitter.com/mdo
++ http://github.com/markdotto
+**Jacob Thornton**
++ http://twitter.com/fat
++ http://github.com/fat
+
+Codeigniter Creators/Community
+
+
+Special Thanks
+--------------
+
+-Twitter bootstrap creators/community
+-Codeigniter creators/community
+
+License
+---------------------
+James Rainaldi 2012 
+
+Licensed under the Apache License, Version 2.0: http://www.apache.org/licenses/LICENSE-2.0
