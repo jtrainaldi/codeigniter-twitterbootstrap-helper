@@ -4,7 +4,8 @@
 	TWITTER BOOTSTRAP v2.0 - HELPER
 	Author: James Rainaldi
 	Created: 2012-02-03
-	Version: v1.0
+	Modified: 2012-02-21
+	Version: v1.0.3
 	Contributors: .....
 
  */
@@ -22,11 +23,11 @@
 	 *
 	 *     echo Form::checkbox('remember_me', 1, (bool) $remember);
 	 *
-	 * @param   string   input name
-	 * @param   string   input value
-	 * @param   boolean  checked status
-	 * @param   array    html attributes
-	 * @return  string
+	 * @param   String   input name
+	 * @param   String   input value
+	 * @param   Boolean  checked status
+	 * @param   Array    html attributes
+	 * @return  String
 	 * @uses    Form::input
 	 */
 	function tw_form_checkbox($name, $value = NULL, $checked = FALSE, array $attr = NULL, $label = NULL)
@@ -58,11 +59,11 @@
 	 *
 	 *     echo Form::checkbox('remember_me', 1, (bool) $remember);
 	 *
-	 * @param   string   input name
-	 * @param   string   input value
-	 * @param   boolean  checked status
-	 * @param   array    html attributes
-	 * @return  string
+	 * @param   String   input name
+	 * @param   String   input value
+	 * @param   Boolean  checked status
+	 * @param   Array    html attributes
+	 * @return  String
 	 * @uses    Form::input
 	 */
 	function tw_form_radio($name, $value = NULL, $checked = FALSE, array $attr = NULL, $label = NULL)
@@ -93,10 +94,10 @@
 	/**
 	 * Generates an control-group structure.
 	 *
-	 * @param   string  label name
-	 * @param   array   html elements (use Codginiter Form Helper)
-	 * @param	array   twitter bootstrap specific attributes and control-group html attrs validation: error, success, warning
-	 * @return  string
+	 * @param   String  label name
+	 * @param   String/array   html elements (use Codginiter Form Helper)
+	 * @param		Array   twitter bootstrap specific attributes and control-group html attrs validation: error, success, warning
+	 * @return  String
 	 */
 	function control_group($label_name = NULL, $element, $attr = NULL)
 	{
@@ -134,10 +135,12 @@
 
 		//Assign the label 'for' attribute to the first element's ID value for
 		// label click functionality.
-		if(isset($element)):
+		if(is_array($element)):
 			foreach($element as $e):
 				$element_id[] = substr(substr($e,strpos($e,'id=')+4),0,strpos(substr($e,strpos($e,'id=')+4),'"'));
 			endforeach;
+		else :	
+			$element_id[] = substr(substr($element,strpos($element,'id=')+4),0,strpos(substr($element,strpos($element,'id=')+4),'"'));
 		endif;		
 		
 		//Begin generating the control-group structure
@@ -157,16 +160,15 @@
 						$cg_str .= '<span class="add-on '.$attr['add-on-class'].'">'.$attr['prepend'].'</span>';
 					endif;
 					
-					//Add elements
-					foreach($element as $e):
-							if($attr['uneditable']):
-								$cg_str .= '<span class="uneditable-input" >'.$e.'</span>';
-							elseif($attr['view']):
-								$cg_str .= '<span class="view-input" >'.$e.'</span>';
-							else :
-								$cg_str .= $e;
-							endif;
-					endforeach;
+					//Add elements 
+					// Check if element variable passed is an array or string
+					if(is_array($element)):
+						foreach($element as $e):
+							$cg_str .= ($attr['uneditable'] or $attr['view']) ? '<span class="'. ($attr['view'] ? "view-input" : ($attr['uneditable'] ? "uneditable-input" : "")) .'">'.$e.'</span>' : $e;
+						endforeach;
+					else :
+						$cg_str .= ($attr['uneditable'] or $attr['view']) ? '<span class="'. ($attr['view'] ? "view-input" : ($attr['uneditable'] ? "uneditable-input" : "")) .'">'.$element.'</span>' : $element;
+					endif;
 
 					//Add append element
 					if(isset($attr['append'])):
@@ -199,10 +201,10 @@
 	/**
 	 * Generates a form-action box.
 	 *
-	 * @param   string  label name
-	 * @param   array   html button/submit elements (use Form Helper)
-	 * @param		array   twitter bootstrap specific attributes (error, append, prepend, etc.)
-	 * @return  string
+	 * @param   String  label name
+	 * @param   String/Array   html button/submit elements (use Form Helper)
+	 * @param		Array   twitter bootstrap specific attributes (error, append, prepend, etc.)
+	 * @return  String
 	 */
 	function form_action($button, $attr = NULL)
 	{
@@ -212,19 +214,21 @@
 		$array_count=0;
 		
 		//Basic HTML element attributes
+		//$button = (isset($button)) ? $button : '';
+
 		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
 		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
 		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
 			
 		$fa_str = '<div id="'.$attr['id'].'" class="form-actions '.$attr['class'].' " style="'.$attr['style'].'" >';
 		
-			if(isset($button)):
+			if(is_array($button)):
 				foreach($button as $b):
 					$fa_str .= ($array_count>0)?'&nbsp;'.$b:$b;
 					$array_count++;
 				endforeach;
-			else :
-				$fa_str .= '&nbsp;';
+			else :	
+				$fa_str .= $button;
 			endif;
 		
 		$fa_str .= '</div>';
