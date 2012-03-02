@@ -10,7 +10,6 @@
 
  */
 
-
 	/*
 	FORMS
 	Description:
@@ -279,6 +278,132 @@ This helper file assists in creating the twitter bootstrap v2.0 alert elements (
 		return $alert_str;
 
 	}  //END OF alert function
+
+
+/*
+Buttons
+Description:
+This helper file assists in creating the twitter bootstrap v2.0 button componenets.
+*/
+
+	/*
+	BUTTON GROUP (non-dropdown)
+	Description:
+	This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
+	*/
+
+		function button_group($button = '', $attr=NULL){
+
+			//Declare and Initialize variables
+			$bg_str='';
+			$array_count=0;
+			
+			//Basic HTML element attributes
+			$attr['id'] = (isset($attr['id']))?$attr['id']:'';
+			$attr['class'] = (isset($attr['class']))?$attr['class']:'';
+			$attr['style'] = (isset($attr['style']))?$attr['style']:'';
+			$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
+
+			$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
+				
+				if(is_array($button)):
+
+					if(is_array($button[0])):
+
+						foreach($button as $b):
+
+							$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+
+							foreach($b as $b2):
+
+								$bg_str .= $b2;
+
+							endforeach;
+
+							$bg_str .= '</div >';
+
+						endforeach;	
+					else:
+						$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+
+						foreach($button as $b):
+
+							$bg_str .= $b;
+
+						endforeach;
+	
+						$bg_str .= '</div>';
+
+					endif;	
+
+				else :
+						$bg_str .= $button;
+				endif;						
+			
+			$bg_str .= '</div>';
+			return $bg_str;
+
+		}  //END OF button_group function
+
+	/*
+	BUTTON GROUP (non-dropdown)
+	Description:
+	This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
+	*/
+		function button_dropdown($button = '', $attr=NULL){
+
+			//Declare and Initialize variables
+			$bg_str='';
+			$array_count=0;
+			
+			//Basic HTML element attributes
+			$attr['id'] = (isset($attr['id']))?$attr['id']:'';
+			$attr['class'] = (isset($attr['class']))?$attr['class']:'';
+			$attr['style'] = (isset($attr['style']))?$attr['style']:'';
+			$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
+			//$attr['loading-text'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
+			//$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
+			
+			$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
+				
+				if(is_array($button)):
+
+					if(is_array($button[0])):
+
+						foreach($button as $b):
+
+							$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+
+							foreach($b as $b2):
+
+								$bg_str .= $b2;
+
+							endforeach;
+
+							$bg_str .= '</div >';
+
+						endforeach;	
+					else:
+						$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+
+						foreach($button as $b):
+
+							$bg_str .= $b;
+
+						endforeach;
+	
+						$bg_str .= '</div>';
+
+					endif;	
+
+				else :
+						$bg_str .= $button;
+				endif;						
+			
+			$bg_str .= '</div>';
+			return $bg_str;
+
+		}  //END OF button_group function
 
 
 ?>

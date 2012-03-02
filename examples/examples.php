@@ -1,21 +1,26 @@
 <div class="page-header">
-	<h1>Twitter Bootstrap Helper</small></h1>
+	<h1>Codeigniter / Twitter Bootstrap Helper<small></small></h1>
 </div>
 
-<div class="row" >
+<?php echo alert('You can find the download link and more information at - <a href="https://github.com/jtrainaldi/codeigniter-twitterbootstrap-helper"><strong>GITHUB</strong> <i class="icon-download-alt"></i></a>.', array('class'=>'alert-info')); ?>
 
-	<div class="span3">
-		<div class="margin-top-25">
+<div class="row"  >
+	
 
-			<ul class="well nav nav-list">
-				<li><a href=""><i class="icon-th-list"></i> Forms</a></li>
-				<li><a href=""><i class="icon-comment"></i> Alerts</a></li>
+	<div class="span2">
+		<div class="margin-top-0">
+
+			<ul class="nav nav-list  " style="" >
+				<li><a href="#forms"><i class="icon-th-list"></i> Forms</a></li>
+				<li><a href="#alerts"><i class="icon-comment"></i> Alerts</a></li>
+				<li><a href="#buttons"><i class="icon-th"></i> Buttons</a></li>
 			</ul>
-
+		
 		</div>
 	</div>
-	<div class="span9">
-		<section >
+	<div class="span10 " >
+		<a name="forms"></a>
+		<section class="white-well rounded " >
 			<div class="page-header">
 				<h1>Forms <small>lets make them easier to write</small></h1>
 			</div>
@@ -63,7 +68,7 @@ $attr = array('class'=>'error');
 			<?php
 				//
 				$element=array();
-				$element[] = form_input('input1','', 'id="input1" class="error" ');
+				$element[] = form_input('input1','', 'id="input1" class="" ');
 				echo control_group('Error input', $element, array('class'=>'error'));
 			?>
 
@@ -73,7 +78,7 @@ $attr = array('class'=>'success');
 			
 			<?php	
 				$element=array();
-				$element[] = form_input('input1','', 'id="input1" class="error" ');
+				$element[] = form_input('input1','', 'id="input1" class="" ');
 				echo control_group('Success input', $element, array('class'=>'success'));
 			?>
 
@@ -83,7 +88,7 @@ $attr = array('class'=>'warning');
 			
 			<?php	
 				$element=array();
-				$element[] = form_input('input1','', 'id="input1" class="error" ');
+				$element[] = form_input('input1','', 'id="input1" class="" ');
 				echo control_group('Warning input', $element, array('class'=>'warning'));
 			?>
 
@@ -95,7 +100,7 @@ $attr = array('uneditable'=>TRUE);
 			<?php
 					
 				$element=array();
-				$element[] = form_input('input1','', 'id="input1" class="error" ');
+				$element[] = form_input('input1','', 'id="input1" class="" ');
 				echo control_group('Text input', array('Sample text'), array('class'=>'','uneditable'=>TRUE));
 
 			?>
@@ -107,10 +112,34 @@ $attr = array('view'=>TRUE);
 			<?php
 
 				$element=array();
-				$element[] = form_input('input1','', 'id="input1" class="error" ');
+				$element[] = form_input('input1','', 'id="input1" class="" ');
 				echo control_group('Text input', array('Sample text'), array('class'=>'','view'=>TRUE));
 
 			?>
+
+<pre class="prettyprint linenums pre-scrollable">
+$attr = array('help-inline'=>'help inline text goes here');
+</pre>
+
+			<?php
+
+				$element=array();
+				$element[] = form_input('input1','', 'id="input1" class="" ');
+				echo control_group('Inline Help input', $element, array('class'=>'', 'help-inline'=>'inline help text goes here'));
+
+			?>
+<pre class="prettyprint linenums pre-scrollable">
+$attr = array('help-block'=>'help block text goes here');
+</pre>
+
+			<?php
+
+				$element=array();
+				$element[] = form_input('input1','', 'id="input1" class="" ');
+				echo control_group('Inline Help input', $element, array('class'=>'', 'help-block'=>'inline help text goes here'));
+
+			?>
+
 
 <div class="accordion" id="accordion2">
 	<div class="accordion-group">
@@ -140,7 +169,6 @@ $attr = array('view'=>TRUE);
 
 
 <hr />
-
 			<h2>Form Action Function</h2>
 <pre class="prettyprint linenums pre-scrollable">
 function form_action($button, $attr = NULL)
@@ -152,7 +180,7 @@ function form_action($button, $attr = NULL)
 				$data[] = array(
 				    'name' => 'button',
 				    'id' => 'button',
-				    'class' => 'btn btn-success',
+				    'class' => 'btn-success',
 				    'value' => 'true',
 				    'type' => 'button',
 				    'content' => 'Button1'
@@ -160,7 +188,7 @@ function form_action($button, $attr = NULL)
 				$data[] = array(
 				    'name' => 'button',
 				    'id' => 'button',
-				    'class' => 'btn btn-warning',
+				    'class' => 'btn-warning',
 				    'value' => 'true',
 				    'type' => 'button',
 				    'content' => 'Button2'
@@ -168,7 +196,7 @@ function form_action($button, $attr = NULL)
 				$data[] = array(
 				    'name' => 'button',
 				    'id' => 'button',
-				    'class' => 'btn btn-primary pull-right',
+				    'class' => 'btn-primary pull-right',
 				    'value' => 'true',
 				    'type' => 'button',
 				    'content' => 'Button3 .pull-right'
@@ -185,7 +213,8 @@ function form_action($button, $attr = NULL)
 
 		</section>
 
-		<section class="" style="margin-top:60px;"  >
+		<a name="alerts"></a>
+		<section class="white-well rounded " style="margin-top:60px;"  >
 			
 			<div class="page-header">
 				<h1>Alerts <small>Inline and block code snippets</small></h1>
@@ -217,7 +246,209 @@ $attr['header'] = String; *Alert Header (H4 tag added)*
 
 		</section>
 
+		<a name="buttons"></a>
+		<section class="white-well rounded" style="margin-top:60px;"  >
+			
+			<div class="page-header">
+				<h1>Buttons  <small></small></h1>
+			</div>
+
+			<h2>Button Group Function</h2>
+
+<pre class="prettyprint linenums pre-scrollable ">
+function button_group($button, $attr=NULL){
+* @param   String/Array   string or an array of buttons (use Codginiter Form Helper)
+* @param   Array  button_group attributes (style, class, id, etc)
+* @return  String  twitter button group.
+
+/* $attr OPTIONS	*/
+$attr['id'] = String;
+$attr['class'] = String;
+$attr['style'] = String;
+$attr['toggle'] = String;
+$attr['loading-text'] = String;
+$attr['complete-text'] = String;
+
+</pre>
+			<h3>Default Example</h3>
+
+			<?php
+				$button = NULL;
+				$button = array(
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => 'Left',
+					    'toggle' => 'button'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => 'Middle'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => 'Right'
+						)
+					)
+
+				);
+
+				echo button_group($button);
+		?>
+		<hr />
+			<h3>Toolbar Example</h3>
+<pre class="prettyprint linenums pre-scrollable ">
+/* If button array is multidimensional it will break the primary array into 
+individual button-groups and wrap them in the button-toolbar class */
+</pre>
+		<?php
+				$button = NULL;
+				$button[] = array(
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '1'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '2'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '3'
+						)
+					)
+
+				);
+				$button[] = array(
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>' btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '1'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>' btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '2'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>' btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '3'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>' btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '4'
+						)
+					),
+					form_button(
+						array(
+					    'name' => 'button',
+					    'id' => 'button',
+					    'class'=>'btn-info',
+					    'value' => 'true',
+					    'type' => 'button',
+					    'content' => '5'
+						)
+					)
+
+				);
+				//print_array($button);
+
+				echo button_group($button, array('toggle'=>'radio'));
+
+			?>
+
+<span class="label label-warning pull-right" >Incomplete</span>
+			<h3>Button Dropdown Example </h3>
+<pre class="prettyprint linenums pre-scrollable ">
+/* If button array is multidimensional it will break the primary array into 
+individual button-groups and wrap them in the button-toolbar class */
+</pre>
+		<?php
+				$button = NULL;
+				$button[] = array(
+					form_button(
+						array(
+						    'name' => 'button',
+						    'id' => 'button',
+						    'class'=>'btn-info',
+						    'value' => 'true',
+						    'type' => 'button',
+						    'content' => 'Action',
+						    'dropdown' => array(
+						    	'options' => array(
+						    		''
+						    	),
+						    	'split' => TRUE
+					    	)
+						)
+					)
+				);
+				echo button_group($button);
+		?>
+		</section>
+
+
 	</div>
 
 
 </div>
+<script>
+$(document).ready(function(){
+	$('html,body').animate({
+		scrollTop: ($(".page-header").offset().top)-115},'slow');
+	});
+</script>
