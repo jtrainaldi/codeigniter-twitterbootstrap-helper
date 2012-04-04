@@ -17,76 +17,6 @@
 	  combination with the codeigniter form helper.
 	*/
 
-	/**
-	 * Creates a twitter checkbox form input (extended).
-	 *
-	 *     echo Form::checkbox('remember_me', 1, (bool) $remember);
-	 *
-	 * @param   String   input name
-	 * @param   String   input value
-	 * @param   Boolean  checked status
-	 * @param   Array    html attributes
-	 * @return  String
-	 * @uses    Form::input
-	 */
-	function tw_form_checkbox($name, $value = NULL, $checked = FALSE, array $attr = NULL, $label = NULL)
-	{
-		
-		$inline = '';
-		$attr['name'] = $name;
-		$attr['value'] = (isset($value))?$value:'';
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-		$attr['inline'] = (isset($attr['inline']) and $attr['inline']==TRUE)?TRUE:FALSE;
-		
-		if($attr['inline']):
-			$inline = 'inline';
-		endif;
-
-		if ($checked === TRUE)
-		{
-			// Make the checkbox active
-			$attr['checked'] = TRUE;
-		}
-
-		return '<label class="checkbox '.$inline.' " >'.form_checkbox($attr).$label.'</label>';
-	}
-
-	/**
-	 * Creates a radio form input (extended).
-	 *
-	 *     echo Form::checkbox('remember_me', 1, (bool) $remember);
-	 *
-	 * @param   String   input name
-	 * @param   String   input value
-	 * @param   Boolean  checked status
-	 * @param   Array    html attributes
-	 * @return  String
-	 * @uses    Form::input
-	 */
-	function tw_form_radio($name, $value = NULL, $checked = FALSE, array $attr = NULL, $label = NULL)
-	{
-		
-		$inline = '';
-		$attr['name'] = $name;
-		$attr['value'] = (isset($value))?$value:'';
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-		$attr['inline'] = (isset($attr['inline']) and $attr['inline']==TRUE)?TRUE:FALSE;
-		if($attr['inline']):
-			$inline = 'inline';
-		endif;
-
-		if ($checked === TRUE)
-		{
-			// Make the checkbox active
-			$attr['checked'] = TRUE;
-		}
-
-		return '<label class="radio '.$inline.' " >'.form_radio($attr).$label.'</label>';
-	}
 
 
 
@@ -303,35 +233,34 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 			$attr['class'] = (isset($attr['class']))?$attr['class']:'';
 			$attr['style'] = (isset($attr['style']))?$attr['style']:'';
 			$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
-
-			$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
 				
 				if(is_array($button)):
 
 					if(is_array($button[0])):
 
+						$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
+
 						foreach($button as $b):
 
 							$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
-
+							
 							foreach($b as $b2):
-
 								$bg_str .= $b2;
-
 							endforeach;
 
 							$bg_str .= '</div >';
 
 						endforeach;	
+
+						$bg_str .= '</div>';
+
 					else:
 						$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
 
 						foreach($button as $b):
-
-							$bg_str .= $b;
-
+							$bg_str .= $b;							
 						endforeach;
-	
+
 						$bg_str .= '</div>';
 
 					endif;	
@@ -339,8 +268,7 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 				else :
 						$bg_str .= $button;
 				endif;						
-			
-			$bg_str .= '</div>';
+
 			return $bg_str;
 
 		}  //END OF button_group function
@@ -350,60 +278,76 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 	Description:
 	This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
 	*/
-		function button_dropdown($button = '', $attr=NULL){
+	function button_dropdown($data = '', $content = '', $extra = ''){
+		$btn_str = '';
+		$is_dropdown = $is_split = FALSE;
+		$defaults = array('name' => (( ! is_array($data)) ? $data : ''), 'type' => 'button');
 
-			//Declare and Initialize variables
-			$bg_str='';
-			$array_count=0;
-			
-			//Basic HTML element attributes
-			$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-			$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-			$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-			$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
-			//$attr['loading-text'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
-			//$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
-			
-			$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
-				
-				if(is_array($button)):
+		if ( is_array($data) AND isset($data['content']))
+		{
+			$content = $data['content'];
+			unset($data['content']); // content is not an attribute
+		}
+		if ( is_array($data) AND isset($data['class']))
+		{
+			$data['class'] = 'btn ' . $data['class'];
+		}
 
-					if(is_array($button[0])):
+		if ( is_array($data) AND isset($data['toggle']))
+		{
+			$toggle = ($data['toggle']==='button') ? "data-toggle='" . $data['toggle'] ."'" : '';
+		}else {
+			$toggle = "";
+		}
+		if ( is_array($data) AND isset($data['loading-text']))
+		{
+			$loading_text = "data-loading-text='" . $data['loading-text'] ."'";
+		}else {
+			$loading_text = "";
+		}
+		if ( is_array($data) AND isset($data['complete-text']))
+		{
+			$complete_text = "data-complete-text='" . $data['complete-text'] ."'";
+		}else {
+			$complete_text = "";
+		}
+		if ( is_array($data) AND isset($data['split']) )
+		{	
+			$is_split = TRUE;
+		}
+		if ( is_array($data) AND isset($data['dropup']) AND $data['dropup']===TRUE)
+		{
+			$dropup = "dropup";
+		}else {
+			$dropup = "";
+		}
 
-						foreach($button as $b):
+		$btn_str .= '<div class="btn-group ' . $dropup . '"  >';
 
-							$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+		if($is_split){
+			$btn_str .= "<button "._parse_form_attributes($data, $defaults).$extra." " . $toggle . " " . $loading_text ." " . $complete_text ." >".$content."</button>";
+			$btn_str .= '<button class="btn dropdown-toggle '. $data['class'] .'" data-toggle="dropdown"><span class="caret"></span></button>';
+		}else {
+			$data['class'] .= ' dropdown-toggle';
+			$btn_str .= "<button "._parse_form_attributes($data, $defaults).$extra." " . $toggle . " " . $loading_text ." " . $complete_text ." data-toggle='dropdown' >".$content." <span class='caret'></span></button>";
+		}
 
-							foreach($b as $b2):
 
-								$bg_str .= $b2;
+		if ( is_array($data['options']) AND isset($data['options'] ) or is_array($extra['options']) AND isset($extra['options'] ))
+		{	
+			$btn_str .= '<ul class="dropdown-menu">';
+			foreach($data['options'] as $r):
+				$btn_str .= ($r === 'divider') ? '<li class="divider" ></li>' : '<li>' . $r . '</li>';
+			endforeach;
+			$btn_str .= '</ul>';
+		}
 
-							endforeach;
+		$btn_str .= '</div> <!-- End of .btn-group -->';
 
-							$bg_str .= '</div >';
 
-						endforeach;	
-					else:
-						$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+		return $btn_str;
 
-						foreach($button as $b):
-
-							$bg_str .= $b;
-
-						endforeach;
-	
-						$bg_str .= '</div>';
-
-					endif;	
-
-				else :
-						$bg_str .= $button;
-				endif;						
-			
-			$bg_str .= '</div>';
-			return $bg_str;
-
-		}  //END OF button_group function
+	}  //END OF button_group function
 
 
 ?>

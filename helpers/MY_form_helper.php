@@ -1,31 +1,4 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
-/**
- * CodeIgniter
- *
- * An open source application development framework for PHP 5.1.6 or newer
- *
- * @package		CodeIgniter
- * @author		ExpressionEngine Dev Team
- * @copyright	Copyright (c) 2008 - 2011, EllisLab, Inc.
- * @license		http://codeigniter.com/user_guide/license.html
- * @link		http://codeigniter.com
- * @since		Version 1.0
- * @filesource
- */
-
-// ------------------------------------------------------------------------
-
-/**
- * CodeIgniter Form Helpers
- *
- * @package		CodeIgniter
- * @subpackage	Helpers
- * @category	Helpers
- * @author		ExpressionEngine Dev Team
- * @link		http://codeigniter.com/user_guide/helpers/form_helper.html
- */
-
-// ------------------------------------------------------------------------
 
 
 /**
@@ -83,9 +56,6 @@ if ( ! function_exists('form_checkbox'))
 		}else {
 			$label = '';
 		}
-
-		
-
 		return "<label class='" . $data['type'] . " " . $inline . "' ><input "._parse_form_attributes($data, $defaults).$extra." /> " . $label . "</label>";
 		//return "<label ><input "._parse_form_attributes($data, $defaults).$extra." /> " . $label . "</label>";
 	}
@@ -93,29 +63,6 @@ if ( ! function_exists('form_checkbox'))
 
 // ------------------------------------------------------------------------
 
-/**
- * Radio Button
- *
- * @access	public
- * @param	mixed
- * @param	string
- * @param	bool
- * @param	string
- * @return	string
- */
-if ( ! function_exists('form_radio'))
-{
-	function form_radio($data = '', $value = '', $checked = FALSE, $extra = '')
-	{
-		if ( ! is_array($data))
-		{
-			$data = array('name' => $data);
-		}
-
-		$data['type'] = 'radio';
-		return form_checkbox($data, $value, $checked, $extra);
-	}
-}
 
 /**
  * Form Button
@@ -137,7 +84,6 @@ if ( ! function_exists('form_radio'))
 		}
 		if ( is_array($data) AND isset($data['class']))
 		{
-			
 			$data['class'] = 'btn ' . $data['class'];
 		}
 
