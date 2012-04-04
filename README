@@ -1,7 +1,11 @@
-CODEIGNITER-TWITTERBOOTSTRAP-HELPER v1.0.5
+CODEIGNITER-TWITTERBOOTSTRAP-HELPER v1.0.6
 =================
 
 This is Codeigniter helper class to assist in writing some of the Twitter Bootstrap compenents, javascript, etc.
+
+MY_form_helper included to give the additional twitter bootstrap attributes to the Codeigniter form helper functions (more information check the docs).
+
+=========================================================
 
 - Codeigniter: http://codeigniter.com/
 - Twitter Bootstrap: http://twitter.github.com/bootstrap/
