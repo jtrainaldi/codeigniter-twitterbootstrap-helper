@@ -82,9 +82,13 @@ if ( ! function_exists('form_checkbox'))
 			$content = $data['content'];
 			unset($data['content']); // content is not an attribute
 		}
-		if ( is_array($data) AND isset($data['class']))
+		if ( is_array($data))
 		{
-			$data['class'] = 'btn ' . $data['class'];
+			$class = 'btn ';
+			if (isset($data['class'])) {
+				$class = $class . $data['class'];
+			}
+			$data['class'] = $class;
 		}
 
 		if ( is_array($data) AND isset($data['toggle']))
