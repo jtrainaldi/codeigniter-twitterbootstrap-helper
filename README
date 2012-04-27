@@ -1,4 +1,8 @@
-CODEIGNITER-TWITTERBOOTSTRAP-HELPER v1.0.6
+CODEIGNITER-TWITTERBOOTSTRAP-HELPER v2.0.1-wip
+
+
+2.0.1-wip is a heavy rewrite of the twitter bootstrap codeigniter helper class.  This new version breaks backward compatability but should consolidate a lot of functions and attributes.  More and more of the twitter bootstrap classes, components, and javascript compenents are being written everyday.
+
 =================
 
 This is Codeigniter helper class to assist in writing some of the Twitter Bootstrap compenents, javascript, etc.
@@ -14,7 +18,8 @@ MY_form_helper included to give the additional twitter bootstrap attributes to t
 Usage
 -----
 
-For more info, refer to the docs!
+For more info, refer to the docs!  More and more documentation is being added every week.  
+http://jamesrainaldi.com/bootstrap
 
 
 Versioning
