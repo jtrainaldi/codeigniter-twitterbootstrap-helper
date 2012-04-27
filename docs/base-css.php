@@ -5,6 +5,7 @@
     <ul class="nav nav-pills">
       <li><a href="#forms">Forms</a></li>
       <li><a href="#buttons">Buttons</a></li>
+      <li><a href="#icons">Icons by Glyphicons</a></li>
     </ul>
   </div>
 </header>
@@ -48,7 +49,7 @@ $attr['id'] String
 $attr['class'] String
 $attr['style'] String
 //Twitter Bootstrap specific attributes
-$attr['validation'] String *errors, warnings, or success*
+$attr['status'] String *errors, warnings, or success*
 $attr['help-inline'] String 
 $attr['help-block'] String 
 $attr['uneditable'] Bool *makes form uneditable*
@@ -64,7 +65,7 @@ $attr['view'] Bool *removes border, input styling*
 				//
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Error input', $element, array('class'=>'error'));
+				echo form_control_group('Error input', $element, array('status'=>'error'));
 			?>
 <pre class="prettyprint linenums pre-scrollable">
 $attr = array('validation'=>'error');
@@ -73,7 +74,7 @@ $attr = array('validation'=>'error');
 			<?php	
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Success input', $element, array('class'=>'success'));
+				echo form_control_group('Success input', $element, array('status'=>'success'));
 			?>
 <pre class="prettyprint linenums pre-scrollable">
 $attr = array('validation'=>'success');
@@ -82,7 +83,7 @@ $attr = array('validation'=>'success');
 			<?php	
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Warning input', $element, array('validation'=>'warning'));
+				echo form_control_group('Warning input', $element, array('status'=>'warning'));
 			?>
 
 <pre class="prettyprint linenums pre-scrollable">
@@ -93,7 +94,7 @@ $attr = array('validation'=>'warning');
 
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Text input', array('Sample text'), array('class'=>'','view'=>TRUE, 'help-inline'=>''));
+				echo form_control_group('Text input', array('Sample text'), array('class'=>'','view'=>TRUE, 'help-inline'=>''));
 
 			?>
 <pre class="prettyprint linenums pre-scrollable " >
@@ -118,7 +119,7 @@ $attr = array('view'=>TRUE);
 					
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Text input', array('Sample text'), array('class'=>'','uneditable'=>TRUE));
+				echo form_control_group('Text input', array('Sample text'), array('class'=>'','uneditable'=>TRUE));
 
 			?>
 <pre class="prettyprint linenums pre-scrollable">
@@ -129,7 +130,7 @@ $attr = array('uneditable'=>TRUE);
 
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Inline Help input', $element, array('class'=>'', 'help-inline'=>'inline help text goes here'));
+				echo form_control_group('Inline Help input', $element, array('class'=>'', 'help-inline'=>'inline help text goes here'));
 
 			?>
 <pre class="prettyprint linenums pre-scrollable">
@@ -141,7 +142,7 @@ $attr = array('help-inline'=>'help inline text goes here');
 
 				$element=array();
 				$element[] = form_input('input1','', 'id="input1" class="" ');
-				echo control_group('Inline Help input', $element, array('class'=>'', 'help-block'=>'help block text goes here'));
+				echo form_control_group('Inline Help input', $element, array('class'=>'', 'help-block'=>'help block text goes here'));
 
 			?>
 <pre class="prettyprint linenums pre-scrollable">
@@ -197,6 +198,117 @@ function form_action($button, $attr = NULL)
 		echo form_close();
 	?>	
 
+
+
+</section>
+
+<section id="buttons" class="margin-bottom-25" >
+
+	<div class="page-header">
+    <h1>Buttons <small></small></h1>
+  </div>
+  <p>After extending the <abbr class="" rel="tooltip" data-original-title="Codeigniter" data-placement="top" >CI</abbr> Form Helper class it doesn't take much code to generate the twitter bootstrap styled buttons. </p>
+	<table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Button</th>
+        <th>status</th>
+        <th>Sample Code</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><button class="btn" href="#">Default</button></td>
+        <td></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('default', 'Default')
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-primary" href="#">Primary</button></td>
+        <td><code>primary</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('primary', 'Primary', array('status'=>'primary'))
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-info" href="#">Info</button></td>
+        <td><code>info</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('info', 'Info', array('status'=>'info'))
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-success" href="#">Success</button></td>
+        <td><code>success</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('success', 'Success', array('status'=>'success'))
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-warning" href="#">Warning</button></td>
+        <td><code>warning</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('warning', 'Warning', array('status'=>'warning'))
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-danger" href="#">Danger</button></td>
+        <td><code>danger</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('dange', 'Danger', array('status'=>'danger'))
+</pre>
+        </td>
+      </tr>
+      <tr>
+        <td><button class="btn btn-inverse" href="#">Inverse</button></td>
+        <td><code>inverse</code></td>
+        <td>
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+form_button('inverse', 'Inverse', array('status'=>'inverse'))
+</pre>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+</section>
+
+
+<section id="icons" class="margin-bottom-25" >
+
+	<div class="page-header">
+    <h1>Icons <small>shorthand icon creation</small></h1>
+  </div>
+
+<pre class="prettyprint linenums pre-scrollable margin-bottom-0">
+icon($icon, $white = FALSE){ 
+//HTML Element attributes
+$icon String //the base icon strinc minus the word icon-
+$white Bool
+
+//Example (see result below)
+echo icon('user', FALSE, array('style'=>'margin-right:50px;'));
+
+</pre>
+
+<br />
+	<p>
+		<?php
+			echo icon('user', FALSE, array('style'=>'margin-right:50px;')) . ' ' . icon('ok') . ' ' . icon('signal') . ' ' . icon('map-marker');
+		?>
+	</p>
 
 
 </section>

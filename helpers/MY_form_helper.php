@@ -82,31 +82,60 @@ if ( ! function_exists('form_checkbox'))
 			$content = $data['content'];
 			unset($data['content']); // content is not an attribute
 		}
+
+		$class = 'btn ';
 		if ( is_array($data))
 		{
-			$class = 'btn ';
-			if (isset($data['class'])) {
-				$class = $class . $data['class'];
-			}
-			$data['class'] = $class;
+			if (isset($data['class'])) $class = $class . $data['class'];
 		}
+		else 
+		{
+			if (isset($extra['class'])) 
+			{
+				$class = $class . $extra['class'];
+			}
+		}
+
+		if ( is_array($data) AND isset($data['status']))
+		{
+			$class = $class . ' btn-' . $data['status'];
+			unset($data['status']);
+		}
+		else 
+		{
+			if (isset($extra['status'])) 
+			{
+				$class = $class . $extra['status'];
+			}
+			unset($data['status']);
+		}
+		$data['class'] = $class;
+
 
 		if ( is_array($data) AND isset($data['toggle']))
 		{
-			$toggle = ($data['toggle']==='button') ? "data-toggle='" . $data['toggle'] ."'" : '';
-		}else {
+			$toggle = ($data['toggle']) ? "data-toggle='button'" : '';
+			unset($data['toggle']);
+		}else 
+		{
 			$toggle = "";
 		}
+
 		if ( is_array($data) AND isset($data['loading-text']))
 		{
 			$loading_text = "data-loading-text='" . $data['loading-text'] ."'";
-		}else {
+		}
+		else 
+		{
 			$loading_text = "";
 		}
+
 		if ( is_array($data) AND isset($data['complete-text']))
 		{
 			$complete_text = "data-complete-text='" . $data['complete-text'] ."'";
-		}else {
+		}
+		else 
+		{
 			$complete_text = "";
 		}
 

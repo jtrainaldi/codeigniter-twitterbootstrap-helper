@@ -1,7 +1,7 @@
 <?php
 
 /* 
-	TWITTER BOOTSTRAP v2.0 - HELPER
+	TWITTER BOOTSTRAP - HELPER
 	Author: James Rainaldi
 	Created: 2012-02-03
 	Modified: 2012-02-21
@@ -13,7 +13,7 @@
 	/*
 	FORMS
 	Description:
-	This helper file assists in creating the twitter bootstrap v2.0 elements (control-groups) in 
+	This helper file assists in creating the twitter bootstrap elements (control-groups) in 
 	  combination with the codeigniter form helper.
 	*/
 
@@ -25,100 +25,123 @@
 	 *
 	 * @param   String  label name
 	 * @param   String/array   html elements (use Codginiter Form Helper)
-	 * @param		Array   twitter bootstrap specific attributes and control-group html attrs validation: error, success, warning
+	 * @param		Array   twitter bootstrap specific attributes and control-group html attrs status: error, success, warning
 	 * @return  String
 	 */
-	function control_group($label_name = NULL, $element, $attr = NULL)
+	function form_control_group($label_name = NULL, $element, $extra = NULL)
 	{
 		//Declare and Initialize variables
 		$cg_str='';
 		
 		//Basic HTML element attributes
-		$attr['id']    = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
+		$extra['id']    = (isset($extra['id'])) ? $extra['id'] : '';
+		$extra['class'] = (isset($extra['class'])) ? $extra['class'] : '';
+		$extra['style'] = (isset($extra['style'])) ? $extra['style'] : '';
 				
 		//Twitter Bootstrap attributes
-		$attr['validation']  = (isset($attr['validation']))?$attr['validation']:NULL;
-		$attr['help-inline'] = (isset($attr['help-inline']))?$attr['help-inline']:NULL;
-		$attr['help-block']  = (isset($attr['help-block']))?$attr['help-block']:NULL;
-		$attr['uneditable']  = (isset($attr['uneditable']))?TRUE:FALSE;
-		$attr['view']        = (isset($attr['view']))?TRUE:FALSE;
+		$extra['status']  = (isset($extra['status'])) ? $extra['status'] : NULL;
+		$extra['help-inline'] = (isset($extra['help-inline'])) ? $extra['help-inline'] : NULL;
+		$extra['help-block']  = (isset($extra['help-block'])) ? $extra['help-block'] : NULL;
+		$extra['uneditable']  = (isset($extra['uneditable'])) ? TRUE : FALSE;
+		$extra['view']        = (isset($extra['view'])) ? TRUE : FALSE;
 		
 		//Append/Prepend Elements
-		if((isset($attr['prepend']))):
-			$attr['prepend'] = $attr['prepend'];
-		else :
-			$attr['prepend'] = NULL;
-		endif;
-		if((isset($attr['append']))):
-			$attr['append'] = $attr['append'];
-		else :
-			$attr['append'] = NULL;
-		endif;
+		if((isset($extra['prepend'])))
+		{
+			$extra['prepend'] = $extra['prepend'];
+		}
+		else
+		{	
+			$extra['prepend'] = NULL;
+		}
+
+		if((isset($extra['append'])))
+		{
+			$extra['append'] = $extra['append'];
+		}
+		else 
+		{
+			$extra['append'] = NULL;
+		}
 
 		//Set the prepend/append checkbox status if it is checked by default		
-		$attr['add-on-class'] = ((isset($attr['prepend']) and strpos($attr['prepend'],'checked')!==FALSE) or (isset($tb_attributes['append']) and strpos($tb_attributes['append'],'checked')!==FALSE))
-									 ?'active'
-									 :'';
+		$extra['add-on-class'] = ((isset($extra['prepend']) AND strpos($extra['prepend'],'checked')!==FALSE) OR (isset($tb_attributes['append']) AND strpos($tb_attributes['append'],'checked') !== FALSE))
+													 ?'active'
+													 :'';
 
 		//Assign the label 'for' attribute to the first element's ID value for
 		// label click functionality.
-		if(is_array($element)):
-			foreach($element as $e):
+		if(is_array($element))
+		{
+			foreach($element as $e)
+			{
 				$element_id[] = substr(substr($e,strpos($e,'id=')+4),0,strpos(substr($e,strpos($e,'id=')+4),'"'));
-			endforeach;
-		else :	
+			}
+		}
+		else
+		{	
 			$element_id[] = substr(substr($element,strpos($element,'id=')+4),0,strpos(substr($element,strpos($element,'id=')+4),'"'));
-		endif;		
+		}		
 		
 		//Begin generating the control-group structure
-		$cg_str .= '<div id="'.$attr['id'].'" class="control-group '.$attr['class'].' '.$attr['validation'].' clearfix" style="'.$attr['style'].'" >';
-		  $cg_str .= '<label class="control-label" for="'.$element_id[0].'">'.$label_name.'</label>';
+		$cg_str .= '<div id="' . $extra['id'] . '" class="control-group ' . $extra['class'] . ' ' . $extra['status'] . '" style="' . $extra['style'] . '" >';
+		  $cg_str .= '<label class="control-label" for="' . $element_id[0] . '">' . $label_name . '</label>';
 		  $cg_str .= '<div class="controls">';
 		    
 				//Create prepend/append div
-				if(isset($attr['prepend']))
+				if(isset($extra['prepend']))
+				{
 					$cg_str .= '<div class="input-prepend ">';
-				else if(isset($attr['append'])):
+				}
+				else if(isset($extra['append']))
+				{
 					$cg_str .= '<div class="input-append ">';
-				endif;
+				}
 				
 					//Add prepend element
-					if(isset($attr['prepend'])):
-						$cg_str .= '<span class="add-on '.$attr['add-on-class'].'">'.$attr['prepend'].'</span>';
-					endif;
+					if(isset($extra['prepend']))
+					{
+						$cg_str .= '<span class="add-on ' . $extra['add-on-class'] . '">' . $extra['prepend'] . '</span>';
+					}
 					
 					//Add elements 
 					// Check if element variable passed is an array or string
-					if(is_array($element)):
-						foreach($element as $e):
-							$cg_str .= ($attr['uneditable'] or $attr['view']) ? '<span class="'. ($attr['view'] ? "view-input" : ($attr['uneditable'] ? "uneditable-input" : "")) .'">'.$e.'</span>' : $e;
-						endforeach;
-					else :
-						$cg_str .= ($attr['uneditable'] or $attr['view']) ? '<span class="'. ($attr['view'] ? "view-input" : ($attr['uneditable'] ? "uneditable-input" : "")) .'">'.$element.'</span>' : $element;
-					endif;
+					if(is_array($element))
+					{
+						foreach($element as $e)
+						{
+							$cg_str .= ($extra['uneditable'] OR $extra['view']) ? '<span class="' . ($extra['view'] ? "view-input" : ($extra['uneditable'] ? "uneditable-input" : "")) . '">' . $e .' </span>' : $e;
+						}
+					}
+					else
+					{
+						$cg_str .= ($extra['uneditable'] OR $extra['view']) ? '<span class="' . ($extra['view'] ? "view-input" : ($extra['uneditable'] ? "uneditable-input" : "")) . '">' . $element . '</span>' : $element;
+					}
 
 					//Add append element
-					if(isset($attr['append'])):
-						$cg_str .= '<span class="add-on '.$attr['add-on-class'].'">'.$attr['append'].'</span>';
-					endif;
+					if(isset($extra['append']))
+					{
+						$cg_str .= '<span class="add-on ' . $extra['add-on-class'] . '">' . $extra['append'] . '</span>';
+					}
 
 				
 					//Add Help-inline text
-					if(isset($attr['help-inline'])): 
-						$cg_str .= '<span class="help-inline">'.$attr['help-inline'].'</span>';
-					endif;
+					if(isset($extra['help-inline']))
+					{ 
+						$cg_str .= '<span class="help-inline">' . $extra['help-inline'] . '</span>';
+					}
 				
 				//Close append/prepend div
-				if(isset($attr['prepend']) or isset($attr['append'])):
+				if(isset($extra['prepend']) OR isset($extra['append']))
+				{
 					$cg_str .= '</div>';
-				endif;
+				}
 
 				//Add Help-block text
-				if(isset($attr['help-block'])): 
-					$cg_str .= '<p class="help-block">'.$attr['help-block'].'</p>';
-				endif;
+				if(isset($extra['help-block']))
+				{
+					$cg_str .= '<p class="help-block">' . $extra['help-block'] . '</p>';
+				}
 				
 		  $cg_str .= '</div> <!-- END OF .controls -->';
 		$cg_str .= '</div> <!-- END OF .control-group -->';
@@ -135,30 +158,34 @@
 	 * @param		Array   twitter bootstrap specific attributes (error, append, prepend, etc.)
 	 * @return  String
 	 */
-	function form_action($button, $attr = NULL)
+	function form_action($button, $extra = NULL)
 	{
 			
 		//Declare and Initialize variables
-		$fa_str='';
-		$array_count=0;
+		$fa_str      ='';
+		$array_count =0;
 		
 		//Basic HTML element attributes
 		//$button = (isset($button)) ? $button : '';
 
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
+		$extra['id']    = (isset($extra['id'])) ? $extra['id'] : '';
+		$extra['class'] = (isset($extra['class'])) ? $extra['class'] : '';
+		$extra['style'] = (isset($extra['style'])) ? $extra['style'] : '';
 			
-		$fa_str = '<div id="'.$attr['id'].'" class="form-actions '.$attr['class'].' " style="'.$attr['style'].'" >';
+		$fa_str = '<div id="' . $extra['id'] . '" class="form-actions ' . $extra['class'] . ' " style="' . $extra['style'] . '" >';
 		
-			if(is_array($button)):
-				foreach($button as $b):
-					$fa_str .= ($array_count>0)?'&nbsp;'.$b:$b;
+			if(is_array($button))
+			{
+				foreach($button as $b)
+				{
+					$fa_str .= ($array_count>0) ? '&nbsp;' . $b : $b;
 					$array_count++;
-				endforeach;
-			else :	
+				}
+			}
+			else 
+			{	
 				$fa_str .= $button;
-			endif;
+			}
 		
 		$fa_str .= '</div>';
 		
@@ -172,102 +199,109 @@
 /*
 ALERTS
 Description:
-This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
+This helper file assists in creating the twitter bootstrap alert elements (alert).
 */
 
-	function alert($body, $attr=NULL){
+	function alert($body, $extra = NULL){
 
 		//Declare and Initialize variables
-		$alert_str='';
-		$array_count=0;
+		$alert_str   = '';
+		$array_count = 0;
 		
 		//Basic HTML element attributes
-		$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-		$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-		$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-		$attr['dismissal'] = (isset($attr['dismissal']) and $attr['dismissal']===TRUE)?TRUE:FALSE;
-		$attr['header'] = (isset($attr['header']))?$attr['header']:NULL;
+		$extra['id']        = (isset($extra['id'])) ? $extra['id'] : '' ;
+		$extra['class']     = (isset($extra['class'])) ? $extra['class'] : '';
+		$extra['style']     = (isset($extra['style'])) ? $extra['style'] : '';
+		$extra['status']      = (isset($extra['status'])) ? 'alert-' . $extra['status'] : '';
+		$extra['dismissal'] = (isset($extra['dismissal']) AND $extra['dismissal']===TRUE) ? TRUE : FALSE;
+		$extra['header']    = (isset($extra['header'])) ? $extra['header'] : NULL;
 
-		$alert_str = '<div id="'.$attr['id'].'" class="alert '.$attr['class'].' fade in " style="'.$attr['style'].'" >';
+		$alert_str = '<div id="' . $extra['id'] . '" class="alert '. $extra['class'] . ' ' . $extra['status'] .' fade in " style="' . $extra['style'] . '" >';
 			
-			if($attr['dismissal']):
-				$alert_str .= '<a class="close" data-dismiss="alert" href="#">×</a>';
-			endif;
+			if($extra['dismissal'])
+			{
+				$alert_str .= close_icon();
+			}
 			
 			//Add header
-			if(isset($attr['header'])):
-				$alert_str .= '<h4 class="alert-heading">'.$attr['header'].'</h4>';
-			endif;
+			if(isset($extra['header']))
+			{
+				$alert_str .= '<h4 class="alert-heading">'.$extra['header'].'</h4>';
+			}
 			
 			//Add body
 			$alert_str .= $body;
 			
-		
-		$alert_str .= '</div>';
+		$alert_str .= '</div> <!-- END OF .alert -->';
 
 		return $alert_str;
-
 	}  //END OF alert function
+
+/* ************************************************************************* */
+
 
 
 /*
 Buttons
 Description:
-This helper file assists in creating the twitter bootstrap v2.0 button componenets.
+This helper file assists in creating the twitter bootstrap button componenets.
 */
 
 	/*
 	BUTTON GROUP (non-dropdown)
 	Description:
-	This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
+	This helper file assists in creating the twitter bootstrap alert elements (alert).
 	*/
 
-		function button_group($button = '', $attr=NULL){
+		function button_group($button = '', $extra = NULL){
 
 			//Declare and Initialize variables
-			$bg_str='';
-			$array_count=0;
+			$bg_str      = '';
+			$array_count = 0;
 			
 			//Basic HTML element attributes
-			$attr['id'] = (isset($attr['id']))?$attr['id']:'';
-			$attr['class'] = (isset($attr['class']))?$attr['class']:'';
-			$attr['style'] = (isset($attr['style']))?$attr['style']:'';
-			$attr['toggle'] = (isset($attr['toggle'])) ? 'buttons-'.$attr['toggle'] : '' ;
+			$extra['id']     = (isset($extra['id'])) ? $extra['id'] : '';
+			$extra['class']  = (isset($extra['class'])) ? $extra['class'] : '';
+			$extra['status']  = (isset($extra['status'])) ? $extra['status'] : '';
+			$extra['style']  = (isset($extra['style'])) ? $extra['style'] : '';
+			$extra['toggle'] = (isset($extra['toggle'])) ? 'buttons-' . $extra['toggle'] : '' ;
 				
-				if(is_array($button)):
+				if(is_array($button))
+				{
+					if(is_array($button[0]))
+					{
+						$bg_str .= '<div class="btn-toolbar" id="' . $extra['id'] . '" class="' . $extra['class'] . '" style="' . $extra['style'] . '" >';
 
-					if(is_array($button[0])):
-
-						$bg_str .= '<div class="btn-toolbar" id="'. $attr['id'] .'" class="'. $attr['class'] .'" style="'. $attr['style'] .'" >';
-
-						foreach($button as $b):
-
-							$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
+						foreach($button as $b)
+						{
+							$bg_str .= '<div class="btn-group" data-toggle="'. $extra['toggle'] . '" >';
 							
-							foreach($b as $b2):
+							foreach($b as $b2)
+							{
 								$bg_str .= $b2;
-							endforeach;
+							}
 
 							$bg_str .= '</div >';
-
-						endforeach;	
+						}	
 
 						$bg_str .= '</div>';
+					}
+					else
+					{
+						$bg_str .= '<div class="btn-group" data-toggle="' . $extra['toggle'] . '" >';
 
-					else:
-						$bg_str .= '<div class="btn-group" data-toggle="'. $attr['toggle'] .'" >';
-
-						foreach($button as $b):
+						foreach($button as $b)
+						{
 							$bg_str .= $b;							
-						endforeach;
+						}
 
-						$bg_str .= '</div>';
-
-					endif;	
-
-				else :
-						$bg_str .= $button;
-				endif;						
+						$bg_str .= '</div> <!-- END OF .btn-group -->';
+					}	
+				}
+				else
+				{
+					$bg_str .= $button;
+				}						
 
 			return $bg_str;
 
@@ -276,49 +310,85 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 	/*
 	BUTTON GROUP (non-dropdown)
 	Description:
-	This helper file assists in creating the twitter bootstrap v2.0 alert elements (alert).
+	This helper file assists in creating the twitter bootstrap alert elements (alert).
 	*/
 	function button_dropdown($data = '', $content = '', $extra = ''){
-		$btn_str = '';
+		$btn_str     = '';
 		$is_dropdown = $is_split = FALSE;
-		$defaults = array('name' => (( ! is_array($data)) ? $data : ''), 'type' => 'button');
+		$defaults    = array('name' => (( ! is_array($data)) ? $data : ''), 'type' => 'button');
 
 		if ( is_array($data) AND isset($data['content']))
 		{
 			$content = $data['content'];
 			unset($data['content']); // content is not an attribute
 		}
-		if ( is_array($data) AND isset($data['class']))
+
+		$class = 'btn ';
+		if ( is_array($data))
 		{
-			$data['class'] = 'btn ' . $data['class'];
+			if (isset($data['class'])) $class = $class . $data['class'];
 		}
+		else 
+		{
+			if (isset($extra['class'])) 
+			{
+				$class = $class . $extra['class'];
+			}
+		}
+
+		if ( is_array($data) AND isset($data['status']))
+		{
+			$class = $class . ' btn-' . $data['status'];
+			unset($data['status']);
+		}
+		else 
+		{
+			if (isset($extra['status'])) 
+			{
+				$class = $class . $extra['status'];
+			}
+			unset($data['status']);
+		}
+		$data['class'] = $class;
 
 		if ( is_array($data) AND isset($data['toggle']))
 		{
 			$toggle = ($data['toggle']==='button') ? "data-toggle='" . $data['toggle'] ."'" : '';
-		}else {
+		}
+		else 
+		{
 			$toggle = "";
 		}
+		
 		if ( is_array($data) AND isset($data['loading-text']))
 		{
 			$loading_text = "data-loading-text='" . $data['loading-text'] ."'";
-		}else {
+		}
+		else 
+		{
 			$loading_text = "";
 		}
+		
 		if ( is_array($data) AND isset($data['complete-text']))
 		{
 			$complete_text = "data-complete-text='" . $data['complete-text'] ."'";
-		}else {
+		}
+		else 
+		{
 			$complete_text = "";
 		}
+		
 		if ( is_array($data) AND isset($data['split']) )
 		{	
 			$is_split = TRUE;
 		}
+
 		if ( is_array($data) AND isset($data['dropup']) AND $data['dropup']===TRUE)
 		{
 			$dropup = "dropup";
-		}else {
+		}
+		else 
+		{
 			$dropup = "";
 		}
 
@@ -333,7 +403,7 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 		}
 
 
-		if ( is_array($data['options']) AND isset($data['options'] ) or is_array($extra['options']) AND isset($extra['options'] ))
+		if ( is_array($data['options']) AND isset($data['options'] ) OR is_array($extra['options']) AND isset($extra['options'] ))
 		{	
 			$btn_str .= '<ul class="dropdown-menu">';
 			foreach($data['options'] as $r):
@@ -344,10 +414,166 @@ This helper file assists in creating the twitter bootstrap v2.0 button componene
 
 		$btn_str .= '</div> <!-- End of .btn-group -->';
 
-
 		return $btn_str;
 
 	}  //END OF button_group function
+
+
+
+
+
+
+/* ************************************************************************* */
+
+/*
+PROGRESS BAR
+Description:
+This helper file assists in creating the twitter bootstrap progress bar elements.
+*/
+
+	function inline_label($data, $extra = NULL){
+
+		//Declare and Initialize variables
+		$str   = '';
+
+		if( ! is_array($data))
+		{
+			$content = (isset($data)) ? $data : '' ;
+		}
+		else 
+		{
+			$content = (isset($data['content'])) ? $data['content'] : 0 ;
+		}
+
+		$extra['id'] 			= (is_array($data) AND isset($data['id'])) ? $data['id'] : (( isset($extra['id']) ) ? $extra['id'] : '');
+		$extra['class'] 		= (is_array($data) AND isset($data['class'])) ? $data['class'] : (( isset($extra['class']) ) ? $extra['class'] : '');
+		$extra['style'] 		= (is_array($data) AND isset($data['style'])) ? $data['style'] : (( isset($extra['style']) ) ? $extra['style'] : '');
+		$extra['type'] 		= (isset($extra['type']) AND $extra['type']==='badge') ? $extra['type'] : 'label';
+		$extra['status'] 	= (is_array($data) AND isset($data['status'])) ? ' ' . $extra['type'] . '-' . $data['status'] 
+											: (( isset($extra['status']) ) ? ' ' . $extra['type'] . '-' . $extra['status'] 
+											: '');
+
+		$str = '<span id="' . $extra['id'] . '" class="' . $extra['type'] . $extra['status'] . ' ' . $extra['class'] . ' " style="' . $extra['style'] . '" >';
+			$str .= $content;
+		$str .= '</span> <!-- END OF .' . $extra['type'] . ' -->';
+
+		return $str;
+	}  //END OF progress_bar function
+
+
+	function badge($data, $extra = NULL){
+		$extra['type'] = 'badge';
+		return inline_label($data, $extra);
+	}
+
+
+/* ************************************************************************* */
+
+/*
+PROGRESS BAR
+Description:
+This helper file assists in creating the twitter bootstrap progress bar elements.
+*/
+
+	function progress_bar($data, $extra = NULL){
+
+		//Declare and Initialize variables
+		$progress_str   = '';
+
+		if( ! is_array($data))
+		{
+			$percentage = (isset($data)) ? $data : 0 ;
+		}
+		else 
+		{
+			$percentage = (isset($data['value'])) ? $data['value'] : 0 ;
+		}
+
+		$extra['id'] 			= (is_array($data) AND isset($data['id'])) ? $data['id'] : (( isset($extra['id']) ) ? $extra['id'] : '');
+		$extra['class'] 		= (is_array($data) AND isset($data['class'])) ? $data['class'] : (( isset($extra['class']) ) ? $extra['class'] : '');
+		$extra['style'] 		= (is_array($data) AND isset($data['style'])) ? $data['style'] : (( isset($extra['style']) ) ? $extra['style'] : '');
+		$extra['status'] 	= (is_array($data) AND isset($data['status'])) ? ' progress-' . $data['status'] 
+											: (( isset($extra['status']) ) ? ' progress-' . $extra['type'] 
+											: '');
+		$extra['animated'] = (is_array($data) AND (isset($data['animated']) AND (isset($data['striped']) AND $data['striped']))) ? ' active' 
+											: ((isset($extra['animated']) AND (isset($extra['striped']) AND $extra['striped'])) ? ' active' 
+											: '');
+		$extra['striped'] 	= (is_array($data) AND (isset($data['striped']) AND $data['striped'])) ? ' progress-striped' 
+											: ((isset($extra['striped']) AND $extra['striped']) ? ' progress-striped' 
+											: '');
+
+		$progress_str = '<div id="' . $extra['id'] . '" class="progress' . $extra['status'] . $extra['striped'] . $extra['animated'] . ' ' . $extra['class'] . ' " style="' . $extra['style'] . '" >';
+			$progress_str .= '<div class="bar" style="width: ' . $percentage .'%;"></div>';
+		$progress_str .= '</div> <!-- END OF .progress-bar -->';
+
+		return $progress_str;
+	}  //END OF progress_bar function
+
+
+
+
+
+
+
+
+
+/* ************************************************************************* */
+
+/*
+Close Icon:
+This helper file assists in creating the twitter bootstrap close icon element that removes a div.
+*/
+function icon($data = '', $white = FALSE, $extra = NULL){
+
+	if( ! is_array($data))
+	{
+		//$icon = (isset($data)) ? 'icon-' . str_replace('icon-','',$data['icon']): '' ;
+		$icon = (isset($data)) ? 'icon-' . str_replace('icon-','',$data): '' ;
+		$icon .= ($white) ? ' icon-white' : '';
+	}
+	else 
+	{
+		$icon = (isset($extra['icon'])) ? 'icon-' . str_replace('icon-','',$extra['icon']) : '' ;
+		$icon .= ($data['white']) ? ' icon-white' : '';
+	}
+
+	$extra['id'] 			= (is_array($data) AND isset($data['id'])) ? $data['id'] : (( isset($extra['id']) ) ? $extra['id'] : '');
+	$extra['class'] 		= (is_array($data) AND isset($data['class'])) ? $data['class'] : (( isset($extra['class']) ) ? $extra['class'] : '');
+	$extra['style'] 		= (is_array($data) AND isset($data['style'])) ? $data['style'] : (( isset($extra['style']) ) ? $extra['style'] : '');
+
+	return '<i id="' . $extra['id'] . '" class="' . $icon . ' ' . $extra['class'] . '" style="' . $extra['style'] . '" ></i>';
+}
+
+/*
+Close Icon:
+This helper file assists in creating the twitter bootstrap close icon element that removes a div.
+*/
+function close_icon($extra = NULL){
+	$extra['id']    = ( isset($extra['id']) ) ? $extra['id'] : '';
+	$extra['class'] = ( isset($extra['class']) ) ? $extra['class'] : '';
+	$extra['style'] = ( isset($extra['style']) ) ? $extra['style'] : '';
+
+	return '<a href="#" id="' . $extra['class'] . '" class="close ' . $extra['class'] . '" data-dismiss="alert" style="' . $extra['style'] . '" >×</a>';
+}
+
+
+/*
+Well Icon:
+This helper file assists in creating the twitter bootstrap well element.
+*/
+function well($data = '', $extra = NULL){
+
+	$extra['id'] 			= (is_array($data) AND isset($data['id'])) ? $data['id'] : (( isset($extra['id']) ) ? $extra['id'] : '');
+	$extra['class'] 		= (is_array($data) AND isset($data['class'])) ? $data['class'] : (( isset($extra['class']) ) ? $extra['class'] : '');
+	$extra['style'] 		= (is_array($data) AND isset($data['style'])) ? $data['style'] : (( isset($extra['style']) ) ? $extra['style'] : '');
+
+
+	$str = '<div id="' . $extra['id'] . '" class="well ' . $extra['class'] . '" style="' . $extra['style'] . '" >';
+		$str .= $content;
+	$str .= '</div> <!-- END OF .well -->';
+	return $str;
+}
+
 
 
 ?>
