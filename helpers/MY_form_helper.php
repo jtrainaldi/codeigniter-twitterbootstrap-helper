@@ -105,9 +105,23 @@ if ( ! function_exists('form_checkbox'))
 		{
 			if (isset($extra['status'])) 
 			{
-				$class = $class . $extra['status'];
+				$class = $class . ' btn-' . $extra['status'];
+				unset($data['status']);
 			}
-			unset($data['status']);
+		}
+
+		if ( is_array($data) AND (isset($data['active']) AND $data['active']))
+		{
+			$class = $class . ' active';
+			unset($data['active']);
+		}
+		else 
+		{
+			if (isset($extra['active']) AND $extra['active']) 
+			{
+				$class = $class . ' active';
+				unset($data['active']);
+			}			
 		}
 		$data['class'] = $class;
 

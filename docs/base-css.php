@@ -10,10 +10,6 @@
   </div>
 </header>
 
-
-
-
-
 <section id="forms" class="margin-bottom-25" >
 
 	<div class="page-header">
@@ -36,24 +32,24 @@
 			<p>This function generates the HTML .control-group markup used to create the <a href="http://twitter.github.com/bootstrap/base-css.html#forms">Twitter Bootstrap form elements</a>.</p>
 			<p>Basic form can simply be made using the <a href="http://codeigniter.com/user_guide/helpers/form_helper.html">CI Form Helper</a> but if you need to create rich forms using the Controls Bootstrap styling this class will help in steamlining your code.</p>
 <pre class="prettyprint linenums pre-scrollable">
-function control_group($label_name = NULL, $element, $attr = NULL)
+function control_group($label_name = NULL, $element, $extra = NULL)
 * @param   String  control group label 
 * @param   Array  form elements (input, select, textarea, etc.) - using CI form_helper
 * @param   Array  twitter bootstrap specific attributes that 
 		  control state, appends, prepends, inline-block, help-block 
 * @return  String  control group containing label, elements, etc.
 
-/* $attr OPTIONS	*/
+/* $extra OPTIONS	*/
 //HTML Element attributes
-$attr['id'] String
-$attr['class'] String
-$attr['style'] String
+$extra['id'] String
+$extra['class'] String
+$extra['style'] String
 //Twitter Bootstrap specific attributes
-$attr['status'] String *errors, warnings, or success*
-$attr['help-inline'] String 
-$attr['help-block'] String 
-$attr['uneditable'] Bool *makes form uneditable*
-$attr['view'] Bool *removes border, input styling*
+$extra['status'] String *errors, warnings, or success*
+$extra['help-inline'] String 
+$extra['help-block'] String 
+$extra['uneditable'] Bool *makes form uneditable*
+$extra['view'] Bool *removes border, input styling*
 
 </pre>
 
@@ -152,7 +148,7 @@ $attr = array('help-block'=>'help block text goes here');
 
 			<h2>Form Action Function</h2>
 <pre class="prettyprint linenums pre-scrollable">
-function form_action($button, $attr = NULL)
+function form_action($button, $extra = NULL)
 * @param   Array  buttons
 * @return  String  action_box with buttons.
 </pre>
@@ -293,10 +289,11 @@ form_button('inverse', 'Inverse', array('status'=>'inverse'))
   </div>
 
 <pre class="prettyprint linenums pre-scrollable margin-bottom-0">
-icon($icon, $white = FALSE){ 
+icon($data = '', $white = FALSE, $extra = NULL){ 
 //HTML Element attributes
-$icon String //the base icon strinc minus the word icon-
+$data String/Array //the base icon string minus the word icon- or an array of all data.
 $white Bool
+$extra Array //html element/twitter bootstrap attributes
 
 //Example (see result below)
 echo icon('user', FALSE, array('style'=>'margin-right:50px;'));

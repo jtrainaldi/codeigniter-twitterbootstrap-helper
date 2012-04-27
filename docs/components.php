@@ -46,18 +46,18 @@
 <div class="row">
 	<div class="span6">
 <pre class="prettyprint linenums pre-scrollable ">
-function button_group($button, $attr=NULL){
+function button_group($button, $extra=NULL){
 * @param   String/Array   string or an array of buttons (use Codginiter Form Helper)
 * @param   Array  button_group attributes (style, class, id, etc)
 * @return  String  twitter button group.
 
-/* $attr OPTIONS	*/
-$attr['id'] = String;
-$attr['class'] = String;
-$attr['style'] = String;
-$attr['toggle'] = String;
-$attr['loading-text'] = String;
-$attr['complete-text'] = String;
+/* $extra OPTIONS	*/
+$extra['id'] = String;
+$extra['class'] = String;
+$extra['style'] = String;
+$extra['toggle'] = String;
+$extra['loading-text'] = String;
+$extra['complete-text'] = String;
 
 </pre>
 	</div>
@@ -111,8 +111,8 @@ $attr['complete-text'] = String;
 		<?php
 			$button = NULL;
 			$button = array(
-				form_button(array('name' => 'button','id' => 'button','status'=>'info','value' => 'true','type' => 'button','content' => '1')),
-				form_button(array('name' => 'button','id' => 'button','status'=>'success','value' => 'true','type' => 'button','content' => '2')),
+				form_button(array('name' => 'button','id' => 'button','status'=>'info','value' => 'true','type' => 'button','content' => '1', 'active'=>TRUE)),
+				form_button(array('name' => 'button','id' => 'button','status'=>'success','value' => 'true','type' => 'button','content' => '2', 'active'=>FALSE)),
 				form_button(array('name' => 'button','id' => 'button','status'=>'warning','value' => 'true','type' => 'button','content' => '4')),
 				form_button(array('name' => 'button','id' => 'button','status'=>'danger','value' => 'true','type' => 'button','content' => '8'))
 			);
@@ -123,8 +123,8 @@ $attr['complete-text'] = String;
 		<?php
 			$button = NULL;
 			$button = array(
-				form_button(array('name' => 'button','id' => 'button','class'=>'','value' => 'true','type' => 'button','content' => 'Yes')),
-				form_button(array('name' => 'button','id' => 'button','class'=>'active ', 'status'=>'inverse', 'value' => 'true','type' => 'button','content' => 'No'))
+				form_button(array('name' => 'button','id' => 'button','class'=>'','value' => 'true','type' => 'button','content' => 'Yes', 'active'=>TRUE)),
+				form_button(array('name' => 'button','id' => 'button','class'=>'', 'status'=>'inverse', 'value' => 'true','type' => 'button','content' => 'No'))
 			);
 
 			echo button_group($button, array('toggle' => 'radio'));
@@ -255,13 +255,13 @@ function button_dropdown($data = '', $content = '', $extra = ''){
 * @return  String  button/twitter attributes.
 
 /* $attr OPTIONS	*/
-$data['id'] = String;
-$data['class'] = String;
-$data['style'] = String;
-$data['options'] = String/Array of anchor tags used for dropdown nav;
+$extra['id'] = String;
+$extra['class'] = String;
+$extra['style'] = String;
+$extra['options'] = String/Array of anchor tags used for dropdown nav;
 		/* add 'divider' for a nav divider */
-$data['split'] = Bool - Whether a split will be used
-$data['dropup'] = Bool - If you want a dropup 
+$extra['split'] = Bool - Whether a split will be used
+$extra['dropup'] = Bool - If you want a dropup 
 
 </pre>
 
@@ -348,18 +348,18 @@ individual button-groups and wrap them in the button-toolbar class */
 <div class="row">
 	<div class="span6">
 <pre class="prettyprint linenums pre-scrollable ">
-function alert($body, $attr = NULL){
+function alert($body, $extra = NULL){
 * @param   String/Array   string 
 * @param   Array  alert attributes (style, class, id, etc)
 * @return  String  twitter alert.
 
 /* $attr OPTIONS	*/
-$attr['id'] = String;
-$attr['class'] = String;
-$attr['style'] = String;
-$attr['status'] = String;
-$attr['dismissal'] = Bool;
-$attr['header'] = String;
+$extra['id'] = String;
+$extra['class'] = String;
+$extra['style'] = String;
+$extra['status'] = String;
+$extra['dismissal'] = Bool;
+$extra['header'] = String;
 
 </pre>
 	</div>
@@ -400,9 +400,8 @@ $attr['header'] = String;
 
 
 
-
-<section id="labels-badges" class="margin-bottom-25" >
 	<a name="badges"></a>
+<section id="labels-badges" class="margin-bottom-25" >
 	<div class="page-header">
     <h1>Inline Labels and Badges <small> </small></h1>
   </div>
@@ -410,19 +409,19 @@ $attr['header'] = String;
 <div class="row">
 	<div class="span6">
 <pre class="prettyprint linenums pre-scrollable ">
-function inline_label($data, $attr = NULL){
+function inline_label($data, $extra = NULL){
 * @param   String/Array  array attributes or bar percentage 
 * @param   Array  progress bar attributes (style, class, id, etc)
 * @return  String  twitter alert.
 
 /* $attr OPTIONS	*/
-$attr['content']  = String
-$attr['id']       = String
-$attr['class']    = String
-$attr['style']    = String
-$attr['type']     = String //badge or NULL = inline-label
+$extra['content']  = String
+$extra['id']       = String
+$extra['class']    = String
+$extra['style']    = String
+$extra['type']     = String //badge or NULL = inline-label
 
-function badge($data, $attr = NULL) 
+function badge($data, $extra = NULL) 
 //calls inline_label function but sets $attr['type'] = badge
 
 </pre>
@@ -527,7 +526,7 @@ function badge($data, $attr = NULL)
 
 
 <section id="progress-bars" class="margin-bottom-25" >
-
+	<a name="progress"></a>
 	<div class="page-header">
     <h1>Progress Bars <small> For loading, redirecting, or action status</small></h1>
   </div>
@@ -535,19 +534,19 @@ function badge($data, $attr = NULL)
 <div class="row">
 	<div class="span6">
 <pre class="prettyprint linenums pre-scrollable ">
-function progress_bar($data, $attr = NULL){
+function progress_bar($data, $extra = NULL){
 * @param   String/Array  array attributes or bar percentage 
 * @param   Array  progress bar attributes (style, class, id, etc)
 * @return  String  twitter alert.
 
 /* $attr OPTIONS	*/
-$attr['value']    = Int
-$attr['id']       = String
-$attr['class']    = String
-$attr['style']    = String
-$attr['status']   = String //success, error, info, warning
-$attr['striped']  = Bool
-$attr['animated'] = Bool //Animated only if striped is TRUE
+$extra['value']    = Int
+$extra['id']       = String
+$extra['class']    = String
+$extra['style']    = String
+$extra['status']   = String //success, error, info, warning
+$extra['striped']  = Bool
+$extra['animated'] = Bool //Animated only if striped is TRUE
 
 </pre>
 	</div>
